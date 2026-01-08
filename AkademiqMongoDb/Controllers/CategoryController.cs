@@ -30,5 +30,19 @@ namespace AkademiqMongoDb.Controllers
             await _categoryService.CreateAsync(createCategoryDto);
             return RedirectToAction("Index");
         }
+
+        
+        public async Task<IActionResult> UpdateCategory(string id)
+        {
+           var category = await _categoryService.GetByIdAsync(id);
+            return View(category);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategory)
+        {
+            await _categoryService.UpdateAsync(updateCategory);
+            return RedirectToAction("Index");
+
+        }
     }
 }
