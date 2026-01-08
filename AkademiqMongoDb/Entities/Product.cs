@@ -1,13 +1,12 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using AkademiqMongoDb.Entites.Common;
 
 namespace AkademiqMongoDb.Entites
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+       
 
         public string Name { get; set; }
 

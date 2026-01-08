@@ -44,5 +44,12 @@ namespace AkademiqMongoDb.Controllers
             return RedirectToAction("Index");
 
         }
+
+       
+        public async Task<IActionResult> DeleteCategory (string id)
+        {
+            await _categoryService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }
