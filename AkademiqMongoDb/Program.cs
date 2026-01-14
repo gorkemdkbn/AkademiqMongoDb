@@ -1,4 +1,5 @@
 using AkademiqMongoDb.Services.CategoryServices;
+using AkademiqMongoDb.Services.ProductServices;
 using AkademiqMongoDb.Settings;
 using Microsoft.Extensions.Options;
 
@@ -10,8 +11,9 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection
     ("DatabaseSettings"));
 
 
-
+// Service Registration
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 {
@@ -23,6 +25,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -31,12 +34,20 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+//    /Admin/Prodcut/Index
+app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
 
 app.MapControllerRoute(
     name: "default",
