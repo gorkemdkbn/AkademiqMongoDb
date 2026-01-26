@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace AkademiqMongoDb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+   
     public class ProductController(IProductService _productServices,
         ICategoryService _categoryService) : Controller
     {

@@ -2,11 +2,13 @@
 using AkademiqMongoDb.Services.AdminServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace AkademiqMongoDb.Controllers
 {
+    [AllowAnonymous]
     public class LoginController(IAdminService _adminService) : Controller
     {
         public IActionResult Index()

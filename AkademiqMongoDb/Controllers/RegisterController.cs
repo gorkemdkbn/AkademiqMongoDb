@@ -1,10 +1,12 @@
 ﻿using AkademiqMongoDb.DTOs.AdminDtos;
 using AkademiqMongoDb.Services.AdminServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
 namespace AkademiqMongoDb.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController(IAdminService _adminService) : Controller
     {
         public IActionResult Signup()
