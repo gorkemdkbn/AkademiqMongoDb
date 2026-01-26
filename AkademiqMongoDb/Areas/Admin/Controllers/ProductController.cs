@@ -2,12 +2,14 @@
 using AkademiqMongoDb.Entites;
 using AkademiqMongoDb.Services.CategoryServices;
 using AkademiqMongoDb.Services.ProductServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AkademiqMongoDb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductController(IProductService _productServices,
         ICategoryService _categoryService) : Controller
     {

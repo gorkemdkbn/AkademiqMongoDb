@@ -2,6 +2,7 @@ using AkademiqMongoDb.Services.AdminServices;
 using AkademiqMongoDb.Services.CategoryServices;
 using AkademiqMongoDb.Services.ProductServices;
 using AkademiqMongoDb.Settings;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,30 @@ builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 
 });
 
+
+
+
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(config =>
+    {
+        config.LoginPath = "/login/Index";
+        config.LogoutPath = "/Login/Logout";
+        config.Cookie.Name = "MilkyAppCookie";
+        config.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        config.SlidingExpiration = true; // Giriþ Yapan Aktif ise 30 dakikalýk süreyi sürekli ileriye atýyor (Pasif olarak 30 Dakika kalýrsan çýkýþ yapar).
+        
+    });
 
 var app = builder.Build();
 
@@ -39,11 +63,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 //    /Admin/Prodcut/Index
 app.MapControllerRoute(
   name: "areas",
