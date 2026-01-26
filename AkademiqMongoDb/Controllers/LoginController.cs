@@ -55,5 +55,12 @@ namespace AkademiqMongoDb.Controllers
             return Redirect("/Admin/Product/index");
             
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("UserName");
+            return RedirectToAction("Index","Default");
+        }
     }
 }
