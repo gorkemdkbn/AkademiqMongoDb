@@ -17,7 +17,7 @@ namespace AkademiqMongoDb.Services.CategoryServices
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _categoryCollection = database.GetCollection<Category>
                 (databaseSettings.CategoryCollectionName);
-        }
+        }s
         public async Task CreateAsync(CreateCategoryDto categoryDto)
         {
             var category = new Category
